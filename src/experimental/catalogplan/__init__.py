@@ -5,8 +5,9 @@ import time
 from Products.PluginIndexes.interfaces import ILimitedResultIndex
 from Products.ZCatalog.plan import Benchmark, CatalogPlan, PriorityMap
 
+
 logger = logging.getLogger(__name__)
-import pdb; pdb.set_trace()
+
 
 def CatalogPlan_stop(self):
     self.end_time = time.time()
