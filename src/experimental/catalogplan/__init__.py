@@ -5,7 +5,6 @@ import time
 from Products.PluginIndexes.interfaces import ILimitedResultIndex
 from Products.ZCatalog.plan import Benchmark, CatalogPlan, PriorityMap
 
-
 logger = logging.getLogger(__name__)
 
 

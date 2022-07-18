@@ -1,19 +1,15 @@
-import os
-import os.path
+# -*- coding: utf-8 -*-
 import time
 import unittest
 
 import six
-from Products.PluginIndexes.BooleanIndex.BooleanIndex import BooleanIndex
 from Products.PluginIndexes.DateRangeIndex.DateRangeIndex import DateRangeIndex
 from Products.PluginIndexes.FieldIndex.FieldIndex import FieldIndex
 from Products.PluginIndexes.KeywordIndex.KeywordIndex import KeywordIndex
 from Products.PluginIndexes.PathIndex.PathIndex import PathIndex
-from Products.PluginIndexes.UUIDIndex.UUIDIndex import UUIDIndex
 from Products.ZCatalog.Catalog import Catalog
 from Products.ZCatalog.plan import MAX_DISTINCT_VALUES
 from Products.ZCatalog.ZCatalog import ZCatalog
-from six.moves._thread import LockType
 from zope.testing import cleanup
 
 HERE = __file__
@@ -57,7 +53,6 @@ class TestCatalogPlan(cleanup.CleanUp, unittest.TestCase):
         if catalog is None:
             catalog = self.cat
         return CatalogPlan(catalog, query=query)
-
 
     def test_getCatalogPlan_partial(self):
         zcat = ZCatalog("catalog")
