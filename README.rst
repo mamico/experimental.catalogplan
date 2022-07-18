@@ -5,6 +5,15 @@ Introduction
 Usage
 =====
 
+Plone::
+
+    [instance]
+    recipe = plone.recipe.zope2instance
+    eggs =
+        experimental.catalogplan
+
+Zope::
+
     [instance]
     recipe = plone.recipe.zope2instance
     eggs =

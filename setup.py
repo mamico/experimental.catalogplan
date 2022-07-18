@@ -45,4 +45,9 @@ setup(name='experimental.catalogplan',
       extras_require={
           'test': ['Products.CMFPlone[test]']
       },
+      entry_points="""
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )
