@@ -3,9 +3,7 @@ import logging
 import time
 
 from Products.PluginIndexes.interfaces import ILimitedResultIndex
-from Products.ZCatalog.plan import Benchmark
-from Products.ZCatalog.plan import CatalogPlan
-from Products.ZCatalog.plan import PriorityMap
+from Products.ZCatalog.plan import Benchmark, CatalogPlan, PriorityMap
 
 logger = logging.getLogger(__name__)
 import pdb; pdb.set_trace()
