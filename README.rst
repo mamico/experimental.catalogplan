@@ -1,5 +1,14 @@
+========================
+experimental.catalogplan
+========================
+
+.. image:: https://badge.fury.io/py/experimental.catalogplan.svg
+    :target: https://badge.fury.io/py/experimental.catalogplan
+    :alt: latest release version badge by Badge Fury
+
 .. image:: https://coveralls.io/repos/github/mamico/experimental.catalogplan/badge.svg
-:target: https://coveralls.io/github/mamico/experimental.catalogplan
+    :target: https://coveralls.io/github/mamico/experimental.catalogplan
+    :alt: Coveralls status
 
 Introduction
 ============

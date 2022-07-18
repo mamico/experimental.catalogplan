@@ -5,9 +5,10 @@ version = '1.0.0a1'
 
 setup(name='experimental.catalogplan',
       version=version,
-      description="No acquistion during publish traverse",
+      description="Experimental ZCatalog plan",
       long_description=(open("README.rst").read() + "\n" +
                         open("CHANGES.rst").read()),
+      long_description_content_type="text/x-rst",
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
