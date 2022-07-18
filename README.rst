@@ -1,3 +1,6 @@
+.. image:: https://coveralls.io/repos/github/mamico/experimental.catalogplan/badge.svg
+:target: https://coveralls.io/github/mamico/experimental.catalogplan
+
 Introduction
 ============
 
