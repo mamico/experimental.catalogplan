@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import find_packages, setup
 
-version = '1.0.0a2.dev0'
+version = '1.0.0a2'
 
 setup(name='experimental.catalogplan',
       version=version,
