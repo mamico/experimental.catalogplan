@@ -13,6 +13,9 @@ experimental.catalogplan
 Introduction
 ============
 
+* fix plan for unused index in a query https://github.com/zopefoundation/Products.ZCatalog/pull/138
+
+* avoid to have DateRecurringIndex between the valueindexes
 
 Usage
 =====
