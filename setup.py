@@ -29,7 +29,12 @@ setup(name='experimental.catalogplan',
       keywords='monkeypatch traverse',
       author='Mauro Amico',
       author_email='mauro.amico@gmail.com',
-      url='http://pypi.org/pypi/collective/experimental.catalogplan',
+      url='https://github.com/mamico/experimental.catalogplan',
+      project_urls={
+          'Issue Tracker': 'https://github.com/mamico/'
+                           'experimental.catalogplan/issues',
+          'Sources': 'https://github.com/mamico/experimental.catalogplan',
+      },
       license='BSD',
       packages=find_packages('src'),
       package_dir={'': 'src'},
