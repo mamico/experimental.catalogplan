@@ -15,7 +15,7 @@ Introduction
 
 * fix plan for unused index in a query https://github.com/zopefoundation/Products.ZCatalog/pull/138
 
-* avoid to have DateRecurringIndex between the valueindexes
+* avoid to have DateRecurringIndex between the valueindexes https://github.com/collective/Products.DateRecurringIndex/pull/8
 
 Usage
 =====
