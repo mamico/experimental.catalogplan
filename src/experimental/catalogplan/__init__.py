@@ -55,7 +55,9 @@ def CatalogPlan_make_key(self, query):
     ]
     if operatorkeys:
         key = [name for name in key if name not in operatorkeys]
-        key.extend([(name, tuple(sorted(query[name].keys()))) for name in operatorkeys])
+        key.extend([
+            (name, tuple(sorted(query[name].keys()))) for name in operatorkeys
+        ])
     # --------- 8< ------------------------------------------------
 
     # Workaround: Python 2.x accepted different types as sort key
