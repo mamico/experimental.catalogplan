@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.0a3 (unreleased)
+1.0.0a3 (2022-08-04)
 --------------------
 
 - Fix catalog plan for query with operators https://github.com/zopefoundation/Products.ZCatalog/pull/139
