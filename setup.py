@@ -45,7 +45,7 @@ setup(name='experimental.catalogplan',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
-          'Products.ZCatalog',
+          'Products.ZCatalog>3.0,<6.3',
       ],
       extras_require={
           'test': ['Products.CMFPlone[test]']

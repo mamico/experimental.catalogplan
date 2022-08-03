@@ -13,9 +13,14 @@ experimental.catalogplan
 Introduction
 ============
 
+
 * fix plan for unused index in a query https://github.com/zopefoundation/Products.ZCatalog/pull/138
+  This fix is now released in Products.ZCatalog 6.3.
 
 * avoid to have DateRecurringIndex between the valueindexes https://github.com/collective/Products.DateRecurringIndex/pull/8
+
+* Fix catalog plan for query with operators https://github.com/zopefoundation/Products.ZCatalog/pull/139
+  This fix (only for `not` operator) is now released in Products.ZCatalog 6.3.
 
 Usage
 =====
