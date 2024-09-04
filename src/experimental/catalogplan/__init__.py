@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import time
-
+from importlib.metadata import version
 from Products.PluginIndexes.interfaces import ILimitedResultIndex
 from Products.ZCatalog.plan import Benchmark, CatalogPlan, PriorityMap
 
@@ -49,27 +49,23 @@ def CatalogPlan_make_key(self, query):
             key.append((name, repr(v)))
 
     # --------- >8 ------------------------------------------------
-    operatorkeys = [
-        name for name in key
-        if isinstance(query.get(name), dict)
-    ]
+    operatorkeys = [name for name in key if isinstance(query.get(name), dict)]
     if operatorkeys:
         key = [name for name in key if name not in operatorkeys]
-        key.extend([
-            (name, tuple(sorted(query[name].keys()))) for name in operatorkeys
-        ])
+        key.extend([(name, tuple(sorted(query[name].keys()))) for name in operatorkeys])
     # --------- 8< ------------------------------------------------
 
     # Workaround: Python 2.x accepted different types as sort key
     # for the sorted builtin. Python 3 only sorts on identical types.
-    tuple_keys = set(key) - set(
-        [x for x in key if not isinstance(x, tuple)])
+    tuple_keys = set(key) - set([x for x in key if not isinstance(x, tuple)])
     str_keys = set(key) - tuple_keys
     return tuple(sorted(str_keys)) + tuple(sorted(tuple_keys))
 
 
-logger.info("*** CatalogPlan.stop monkey patch ***")
-CatalogPlan.stop = CatalogPlan_stop
+# if ZCatalog < 6.4
+if version("Products.ZCatalog") < "6.4":
+    logger.info("*** CatalogPlan.stop monkey patch ***")
+    CatalogPlan.stop = CatalogPlan_stop
 
-logger.info("*** CatalogPlan.make_key monkey patch ***")
-CatalogPlan.make_key = CatalogPlan_make_key
+    logger.info("*** CatalogPlan.make_key monkey patch ***")
+    CatalogPlan.make_key = CatalogPlan_make_key

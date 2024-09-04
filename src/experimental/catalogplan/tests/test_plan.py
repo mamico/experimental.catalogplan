@@ -27,13 +27,13 @@ class Dummy(object):
         return (self.num, self.num + 1)
 
     def getPhysicalPath(self):
-        return '/{0}'.format(self.num)
+        return "/{0}".format(self.num)
 
     def start(self):
-        return '2013-07-{0:02d}'.format(self.num + 1)
+        return "2013-07-{0:02d}".format(self.num + 1)
 
     def end(self):
-        return '2013-07-{0:02d}'.format(self.num + 2)
+        return "2013-07-{0:02d}".format(self.num + 2)
 
 
 class TestCatalogPlan(cleanup.CleanUp, unittest.TestCase):
@@ -46,10 +46,11 @@ class TestCatalogPlan(cleanup.CleanUp, unittest.TestCase):
 
     def setUp(self):
         cleanup.CleanUp.setUp(self)
-        self.cat = Catalog('catalog')
+        self.cat = Catalog("catalog")
 
     def _makeOne(self, catalog=None, query=None):
         from Products.ZCatalog.plan import CatalogPlan
+
         if catalog is None:
             catalog = self.cat
         return CatalogPlan(catalog, query=query)
@@ -61,14 +62,12 @@ class TestCatalogPlan(cleanup.CleanUp, unittest.TestCase):
         class SlowFieldIndex(FieldIndex):
             def query_index(self, record, resultset=None):
                 time.sleep(0.1)
-                return super(SlowFieldIndex, self).query_index(
-                    record, resultset)
+                return super(SlowFieldIndex, self).query_index(record, resultset)
 
         class SlowerDateRangeIndex(DateRangeIndex):
             def query_index(self, record, resultset=None):
                 time.sleep(0.2)
-                return super(SlowerDateRangeIndex, self).query_index(
-                    record, resultset)
+                return super(SlowerDateRangeIndex, self).query_index(record, resultset)
 
         cat.addIndex("num", SlowFieldIndex("num"))
         cat.addIndex("numbers", KeywordIndex("numbers"))
@@ -85,28 +84,21 @@ class TestCatalogPlan(cleanup.CleanUp, unittest.TestCase):
 
         # without a plan index are orderd alphabetically by default
         self.assertEqual(zcat._catalog.getCatalogPlan(query1).plan(), None)
-        self.assertEqual(
-            cat._sorted_search_indexes(query1),
-            ["date", "num", "numbers"]
-        )
+        self.assertEqual(cat._sorted_search_indexes(query1), ["date", "num", "numbers"])
 
         self.assertEqual([b.getPath() for b in zcat.search(query1)], ["2"])
         self.assertRegex(
-            zcat.getCatalogPlan(),
-            r"(?ms).*'date':\s*\([0-9\.]+, [0-9\.]+, True\)"
+            zcat.getCatalogPlan(), r"(?ms).*'date':\s*\([0-9\.]+, [0-9\.]+, True\)"
         )
         self.assertRegex(
-            zcat.getCatalogPlan(),
-            r"(?ms).*'num':\s*\([0-9\.]+, [0-9\.]+, True\)"
+            zcat.getCatalogPlan(), r"(?ms).*'num':\s*\([0-9\.]+, [0-9\.]+, True\)"
         )
         self.assertRegex(
-            zcat.getCatalogPlan(),
-            r"(?ms).*'numbers':\s*\([0-9\.]+, [0-9\.]+, True\)"
+            zcat.getCatalogPlan(), r"(?ms).*'numbers':\s*\([0-9\.]+, [0-9\.]+, True\)"
         )
 
         # after first search field are orderd by speed
-        self.assertEqual(
-            cat.getCatalogPlan(query2).plan(), ["numbers", "num", "date"])
+        self.assertEqual(cat.getCatalogPlan(query2).plan(), ["numbers", "num", "date"])
 
         self.assertEqual([b.getPath() for b in zcat.search(query2)], [])
 
@@ -114,66 +106,53 @@ class TestCatalogPlan(cleanup.CleanUp, unittest.TestCase):
         #  results(limit flag) despite in the last query search whitin
         #  `num` and `date` wasn't done
         self.assertRegex(
-            zcat.getCatalogPlan(),
-            r"(?ms).*'date':\s*\([0-9\.]+, [0-9\.]+, True\)"
+            zcat.getCatalogPlan(), r"(?ms).*'date':\s*\([0-9\.]+, [0-9\.]+, True\)"
         )
         self.assertRegex(
-            zcat.getCatalogPlan(),
-            r"(?ms).*'num':\s*\([0-9\.]+, [0-9\.]+, True\)"
+            zcat.getCatalogPlan(), r"(?ms).*'num':\s*\([0-9\.]+, [0-9\.]+, True\)"
         )
         self.assertRegex(
-            zcat.getCatalogPlan(),
-            r"(?ms).*'numbers':\s*\([0-9\.]+, [0-9\.]+, True\)"
+            zcat.getCatalogPlan(), r"(?ms).*'numbers':\s*\([0-9\.]+, [0-9\.]+, True\)"
         )
-        self.assertEqual(
-            cat.getCatalogPlan(query2).plan(), ["numbers", "num", "date"]
-        )
+        self.assertEqual(cat.getCatalogPlan(query2).plan(), ["numbers", "num", "date"])
 
         # search again doesn't change the index order
         self.assertEqual([b.getPath() for b in zcat.search(query1)], ["2"])
-        self.assertEqual(
-            cat.getCatalogPlan(query2).plan(), ["numbers", "num", "date"]
-        )
+        self.assertEqual(cat.getCatalogPlan(query2).plan(), ["numbers", "num", "date"])
 
     def test_not_query(self):
         # not query is generally slower, force this behavior for testing
         class SlowNotFieldIndex(FieldIndex):
             def query_index(self, record, resultset=None):
-                if getattr(record, 'not', None):
+                if getattr(record, "not", None):
                     time.sleep(0.1)
-                return super(SlowNotFieldIndex, self).query_index(
-                    record, resultset)
+                return super(SlowNotFieldIndex, self).query_index(record, resultset)
 
         zcat = ZCatalog("catalog")
         cat = zcat._catalog
-        cat.addIndex(
-            'num1', SlowNotFieldIndex('num1', extra={"indexed_attrs": "num"}))
-        cat.addIndex(
-            'num2', SlowNotFieldIndex('num2', extra={"indexed_attrs": "num"}))
+        cat.addIndex("num1", SlowNotFieldIndex("num1", extra={"indexed_attrs": "num"}))
+        cat.addIndex("num2", SlowNotFieldIndex("num2", extra={"indexed_attrs": "num"}))
         for i in range(100):
             obj = Dummy(i)
             zcat.catalog_object(obj, str(i))
 
         query1 = {"num1": {"not": 2}, "num2": 3}
-        query2 = {"num1": 2, "num2": {'not': 5}}
+        query2 = {"num1": 2, "num2": {"not": 5}}
 
         # without a plan index are orderd alphabetically by default
         for query in [query1, query2]:
             self.assertEqual(zcat._catalog.getCatalogPlan(query).plan(), None)
-            self.assertEqual(
-                cat._sorted_search_indexes(query),
-                ["num1", "num2"]
-            )
+            self.assertEqual(cat._sorted_search_indexes(query), ["num1", "num2"])
 
-        self.assertEqual([b.getPath() for b in zcat.search(query1)], ['3'])
-        self.assertEqual([b.getPath() for b in zcat.search(query2)], ['2'])
+        self.assertEqual([b.getPath() for b in zcat.search(query1)], ["3"])
+        self.assertEqual([b.getPath() for b in zcat.search(query2)], ["2"])
         # although there are the same fields, the plans are different, and the
         # slower `not` query put the field as second in the plan
         self.assertEqual(cat.getCatalogPlan(query1).plan(), ["num2", "num1"])
         self.assertEqual(cat.getCatalogPlan(query2).plan(), ["num1", "num2"])
 
         # search again doesn't change the order
-        self.assertEqual([b.getPath() for b in zcat.search(query1)], ['3'])
-        self.assertEqual([b.getPath() for b in zcat.search(query2)], ['2'])
+        self.assertEqual([b.getPath() for b in zcat.search(query1)], ["3"])
+        self.assertEqual([b.getPath() for b in zcat.search(query2)], ["2"])
         self.assertEqual(cat.getCatalogPlan(query1).plan(), ["num2", "num1"])
         self.assertEqual(cat.getCatalogPlan(query2).plan(), ["num1", "num2"])
