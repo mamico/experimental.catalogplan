@@ -65,10 +65,10 @@ jobs:
       with:
           task: get-measurement
           label: 'pytest'
-          continue-on-error: true
+          # continue-on-error: true
 
     - name: Show Energy Results
       uses: green-coding-solutions/eco-ci-energy-estimation@v4 # use hash or @vX here (See note below)
       with:
           task: display-results
-          continue-on-error: true
+          # continue-on-error: true
