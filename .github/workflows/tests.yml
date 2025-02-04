@@ -18,17 +18,21 @@ jobs:
         - ubuntu
         config:
         # [Python version, tox env]
-        - ["3.9",   "lint"]
-        - ["2.7",   "py27"]
-        - ["3.7",   "py37"]
-        - ["3.8",   "py38"]
+        - ["3.11",   "lint"]
+        # - ["2.7",   "py27"]
+        # - ["3.7",   "py37"]
+        # - ["3.8",   "py38"]
         - ["3.9",   "py39"]
         - ["3.10",  "py310"]
-        - ["3.9",   "coverage"]
+        - ["3.11",   "coverage"]
 
     runs-on: ${{ matrix.os }}-latest
     name: ${{ matrix.config[1] }}
     steps:
+    - name: Start Measurement
+      uses: green-coding-solutions/eco-ci-energy-estimation@v4
+      with:
+        task: start-measurement
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -55,3 +59,15 @@ jobs:
         coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Tests measurement
+      uses: green-coding-solutions/eco-ci-energy-estimation@v4 # use hash or @vX here (See note below)
+      with:
+          task: get-measurement
+          label: 'pytest'
+          continue-on-error: true
+
+    - name: Show Energy Results
+      uses: green-coding-solutions/eco-ci-energy-estimation@v4 # use hash or @vX here (See note below)
+      with:
+          task: display-results
+          continue-on-error: true
