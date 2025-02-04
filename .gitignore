@@ -57,3 +57,4 @@ include/
 local/
 pip-selfcheck.json
 share/
+.python-version

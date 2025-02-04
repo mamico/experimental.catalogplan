@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-import time
-import unittest
-
-import six
 from Products.PluginIndexes.DateRangeIndex.DateRangeIndex import DateRangeIndex
 from Products.PluginIndexes.FieldIndex.FieldIndex import FieldIndex
 from Products.PluginIndexes.KeywordIndex.KeywordIndex import KeywordIndex
@@ -11,6 +7,11 @@ from Products.ZCatalog.Catalog import Catalog
 from Products.ZCatalog.plan import MAX_DISTINCT_VALUES
 from Products.ZCatalog.ZCatalog import ZCatalog
 from zope.testing import cleanup
+
+import six
+import time
+import unittest
+
 
 HERE = __file__
 

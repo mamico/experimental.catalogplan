@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-import logging
-import time
 from importlib.metadata import version
 from Products.PluginIndexes.interfaces import ILimitedResultIndex
-from Products.ZCatalog.plan import Benchmark, CatalogPlan, PriorityMap
+from Products.ZCatalog.plan import Benchmark
+from Products.ZCatalog.plan import CatalogPlan
+from Products.ZCatalog.plan import PriorityMap
+
+import logging
+import time
+
 
 logger = logging.getLogger(__name__)
 

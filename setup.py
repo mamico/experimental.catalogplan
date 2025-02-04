@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from setuptools import find_packages, setup
+from setuptools import find_packages
+from setuptools import setup
+
 
 version = "1.0.0a4.dev0"
 
@@ -25,6 +27,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
     keywords="monkeypatch traverse",
     author="Mauro Amico",
